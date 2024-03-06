@@ -38,6 +38,13 @@ def Clear():
 # Should operate fully with precision, there should be no rounding or missing decimal places
 
 # Multi-threading 
+    
+#function for running calculator
+def run_calculator():
+    root = tk.Tk()
+    my_calculator = Calculator(root)
+    root.mainloop()
+
 
 if __name__ == "__main__":
     run_calculator()
