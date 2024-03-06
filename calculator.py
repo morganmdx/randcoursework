@@ -1,10 +1,19 @@
 # import libraries
 import threading
-import tkinter
+import tkinter as tk
 
 #creating a basic calculator in Python, with a fully functional GUI
+class Calculator:
+    def __init__(self, root):
+        self.root = root
+        root.title("Python Calculator")
 
 # use any library they see fit to help implement the GUI
+
+
+
+
+
 
 #Multiplication/Division x /
 def Multiplication():
