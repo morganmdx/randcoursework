@@ -1,17 +1,33 @@
 # import libraries
 import threading
-import tkinter as tk
+import tkinter as hem
+from tkinter import font
 
 #creating a basic calculator in Python, with a fully functional GUI
 class Calculator:
     def __init__(self, root):
         self.root = root
-        root.title("Python Calculator")
+        root.title("HEM Calculator")
+        root.configure(bg='lightblue')
+
+        # Load custom font
+        custom_font = font.Font(family="Vidaloka-Regular", size=14)  # Specify the custom font family here
+
+        # Entry field for displaying and inputting numbers
+        self.entry = hem.Entry(root, font=custom_font)
+        self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+
 
 # use any library they see fit to help implement the GUI
         
 def BinarytoDecimal():
     # use the bin() function to convert from a decimal value to its corresponding binary value.
+    print()
+    a = 79
+    # Base 2(binary)
+    bin_a = bin(a)
+    print(bin_a)
+    print(int(bin_a, 2)) #Base 2(binary)
 
 def SquareRoot():
     # find out the square root of a number
@@ -64,7 +80,7 @@ def Clear():
     
 #function for running calculator
 def run_calculator():
-    root = tk.Tk()
+    root = hem.Tk()
     my_calculator = Calculator(root)
     root.mainloop()
 
