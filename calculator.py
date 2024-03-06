@@ -9,11 +9,25 @@ class Calculator:
         root.title("Python Calculator")
 
 # use any library they see fit to help implement the GUI
+        
+def BinarytoDecimal():
+    # use the bin() function to convert from a decimal value to its corresponding binary value.
 
+def SquareRoot():
+    # find out the square root of a number
+    print()
 
+def PowerOf():
+    # make use of power of function
+    print()
 
+def PerIncrease():
+    # percentage increase
+    print(number*1.2)
 
-
+def PerDecrease():
+    # percentage decrease
+    print()
 
 #Multiplication/Division x /
 def Multiplication():
