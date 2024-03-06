@@ -7,8 +7,8 @@ class Calculator:
         root.title("Python Calculator")
 
         # Entry field for displaying and inputting numbers
-        self.entry = tk.Entry(root, font=('Arial', 14))
-        self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
+        self.entry = tk.Entry(root, font=('Arial', 34))
+        self.entry.grid(row=0, column=0, columnspan=4, padx=15, pady=15)
 
         # Button labels
         buttons = [
