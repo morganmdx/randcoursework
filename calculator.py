@@ -12,3 +12,19 @@ import tkinter
 # Should operate fully with precision, there should be no rounding or missing decimal places
 
 # Multi-threading
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    run_calculator()
