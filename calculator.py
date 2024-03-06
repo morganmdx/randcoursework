@@ -11,11 +11,10 @@ class Calculator:
         root.configure(bg='lightblue')
 
         # Load custom font
-        custom_font_path = "C:\Users\morga\OneDrive\Documents\GitHub\randcoursework\Vidaloka-Regular.ttf"  # Replace with the actual path to your font file
-        custom_font = font.Font(family="YourCustomFont", size=14, file=custom_font_path)
+        custom_font = font.Font(family="Vidaloka-Regular", size=14)  # Specify the custom font family here
 
         # Entry field for displaying and inputting numbers
-        self.entry = tk.Entry(root, font=custom_font)
+        self.entry = hem.Entry(root, font=custom_font)
         self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
 
