@@ -39,57 +39,58 @@ class Calculator:
         #creating operation buttons
         #for loop which iterates over each item in the operations list
         for i, (text, command) in enumerate(operations):
-            operation_button = tk.Button(root, text=text, padx=40, pady=20, bg='light yellow', bd=0, command=command)
-            operation_button.grid(row=i // 2 + 2, column=i % 2 + 3)
+            operation_button = tk.Button(root, text=text, padx=40, pady=20, bg='light yellow', bd=0, command=command, width=2)
+            operation_button.grid(row=i // 2 + 3, column=i % 2 + 3, padx=5, pady=5)
 
         # Number buttons
         # Uses a lambda function to capture the current value of number and passes it to the self.insert_number method.
         buttons = []
         for number in range(10):
-            button = tk.Button(root, text=str(number), padx=40, pady=20, bg='light yellow', bd=0, command=lambda num=number: self.insert_number(num))
+            button = tk.Button(root, text=str(number), padx=40, pady=20, bg='light yellow', bd=0, command=lambda num=number: self.insert_number(num), width=2)
             buttons.append(button)
 
         # Place number buttons (0 to 9)
         # Generates a list of positions for the number buttons
-        positions = [(i // 3 + 2, i % 3) for i in range(13)]
-        positions[9] = (5, 1)  # Change the position of button "9" to row 5, column 1
+        positions = [(i // 3 + 3, i % 3) for i in range(13)]
+        positions[9] = (6, 1)  # Change the position of button "9" to row 5, column 1
+        # Modify the position of the "Power Of" button
         for pos, button in zip(positions, buttons[:13]):
-            button.grid(row=pos[0], column=pos[1])
+            button.grid(row=pos[0], column=pos[1], padx=5, pady=5)
 
         # Add Clear button
-        clear_button = tk.Button(root, text="Clear", padx=40, pady=20, command=self.clear)
-        clear_button.grid(row=6, column=1, columnspan=1)  # Set row and column for clear button
+        clear_button = tk.Button(root, text="Clear", padx=40, pady=20, bg='#E8C1C5', command=self.clear, width=2)
+        clear_button.grid(row=7, column=1, columnspan=1, padx=5, pady=5)  # Set row and column for clear button
 
         # Decimal point button
         decimal_button = tk.Button(root, text=".", padx=40, pady=20, bg='light yellow', bd=0, command=lambda: self.insert_decimal())
-        decimal_button.grid(row=6, column=2)
+        decimal_button.grid(row=7, column=2)
 
         # Equals button
         equals_button = tk.Button(root, text="=", padx=40, pady=20, bg='light yellow', bd=0, command=self.evaluate_expression)
-        equals_button.grid(row=6, column=3)
+        equals_button.grid(row=7, column=3, padx=5, pady=5)
 
         # Conversion buttons
-        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=29, pady=20, command=self.decimal_to_binary)
-        convert_to_binary_btn.grid(row=5, column=0)
+        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=40, pady=20, bg='light yellow', command=self.decimal_to_binary, width=2)
+        convert_to_binary_btn.grid(row=6, column=0, padx=5, pady=5)
 
-        convert_to_decimal_btn = tk.Button(root, text="To Decimal", padx=29, pady=20, command=self.binary_to_decimal)
-        convert_to_decimal_btn.grid(row=5, column=2)
+        convert_to_decimal_btn = tk.Button(root, text="To Decimal", padx=40, pady=20, bg='light yellow', command=self.binary_to_decimal, width=2)
+        convert_to_decimal_btn.grid(row=6, column=2, padx=5, pady=5)
 
         # Adding a button that allows the user to change the background color
         color_btn1 = tk.Button(root, text="", padx=10, pady=5, bg='lightblue', command=lambda: self.change_bg_color('lightblue'))
-        color_btn1.grid(row=7, column=0, padx=(0, 20))  # Add spacing after the button
+        color_btn1.grid(row=9, column=0, padx=(0, 20))  # Add spacing after the button
 
         color_btn2 = tk.Button(root, text="", padx=10, pady=5, bg='lightgreen', command=lambda: self.change_bg_color('lightgreen'))
-        color_btn2.grid(row=7, column=1, padx=(20, 20))  # Add spacing before and after the button
+        color_btn2.grid(row=9, column=1, padx=(20, 20))  # Add spacing before and after the button
 
         color_btn3 = tk.Button(root, text="", padx=10, pady=5, bg='lightcoral', command=lambda: self.change_bg_color('lightcoral'))
-        color_btn3.grid(row=7, column=2, padx=(20, 20))  # Add spacing before and after the button
+        color_btn3.grid(row=9, column=2, padx=(20, 20))  # Add spacing before and after the button
 
         color_btn4 = tk.Button(root, text="", padx=10, pady=5, bg='black', command=lambda: self.change_bg_color('black'))
-        color_btn4.grid(row=7, column=3, padx=(20, 20))  # Add spacing before and after the button
+        color_btn4.grid(row=9, column=3, padx=(20, 20))  # Add spacing before and after the button
 
         color_btn5 = tk.Button(root, text="", padx=10, pady=5, bg='violet', command=lambda: self.change_bg_color('violet'))
-        color_btn5.grid(row=7, column=4, padx=(20, 20))  # Add spacing before the button
+        color_btn5.grid(row=9, column=4, padx=(20, 20))  # Add spacing before the button
 
 
     # This defines a method and takes 2 parameteres (self and color)
