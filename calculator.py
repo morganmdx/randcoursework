@@ -1,9 +1,6 @@
-# import libraries
-import threading
-import tkinter as hem
+import tkinter as tk
 from tkinter import font
 
-#creating a basic calculator in Python, with a fully functional GUI
 class Calculator:
     def __init__(self, root):
         self.root = root
@@ -11,65 +8,88 @@ class Calculator:
         root.configure(bg='lightblue')
 
         # Load custom font
-        custom_font = font.Font(family="Vidaloka-Regular", size=14)  # Specify the custom font family here
+        custom_font = font.Font(family="Vidaloka-Regular", size=14)
 
         # Entry field for displaying and inputting numbers
-        self.entry = hem.Entry(root, font=custom_font)
+        self.entry = tk.Entry(root, font=custom_font)
         self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
+        # Number buttons
+        buttons = []
+        for number in range(10):
+            button = tk.Button(root, text=str(number), padx=40, pady=20, command=lambda num=number: insert_number(num))
+            buttons.append(button)
 
-# use any library they see fit to help implement the GUI
+        # Place number buttons
+        positions = [(i // 3 + 1, i % 3) for i in range(9, -1, -1)]
+        for pos, button in zip(positions, buttons[::-1]):
+            button.grid(row=pos[0], column=pos[1])
+
+        # Conversion buttons
+        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=29, pady=20, command=decimal_to_binary)
+        convert_to_binary_btn.grid(row=4, column=0)
+
+        convert_to_decimal_btn = tk.Button(root, text="To Decimal", padx=29, pady=20, command=binary_to_decimal)
+        convert_to_decimal_btn.grid(row=4, column=1)
+
+
+# Function to insert a number into the entry field
+def insert_number(number):
+    current = calculator.entry.get()
+    calculator.entry.delete(0, tk.END)
+    calculator.entry.insert(0, str(current) + str(number))
         
 def BinarytoDecimal():
     # use the bin() function to convert from a decimal value to its corresponding binary value.
-    print()
-    a = 79
-    # Base 2(binary)
-    bin_a = bin(a)
-    print(bin_a)
-    print(int(bin_a, 2)) #Base 2(binary)
+    binary_input = calculator.entry.get()
+    try:
+        decimal_output = int(binary_input, 2)
+        calculator.entry.delete(0, tk.END)
+        calculator.entry.insert(0, str(decimal_output))
+    except ValueError:
+        calculator.entry.delete(0, tk.END)
+        calculator.entry.insert(0, "Error")
 
 def SquareRoot():
     # find out the square root of a number
-    print()
+    pass
 
 def PowerOf():
     # make use of power of function
-    print()
+    pass
 
 def PerIncrease():
     # percentage increase
-    print(number*1.2)
+    pass
 
 def PerDecrease():
     # percentage decrease
-    print()
+    pass
 
 #Multiplication/Division x /
 def Multiplication():
     # multiply numbers
-    print()
+    pass
 
 def Addition():
     # add numbers together
-    print()
+    pass
 
 def Subtraction():
     # when user selects this subtract
-    print()
+    pass
 
 def Division():
     # when user presses this divide
-    print()
+    pass
 
 def Equals():
     # when user presses equals execute this
-    print()
+    pass
 
 def Clear():
     # clear the contents of any user input
-    print()
-
+    pass
 
 # Our criteria as follows:
 # Subtraction/Additional - +
@@ -77,11 +97,12 @@ def Clear():
 # Should operate fully with precision, there should be no rounding or missing decimal places
 
 # Multi-threading 
-    
-#function for running calculator
+
+# Function for running calculator
 def run_calculator():
-    root = hem.Tk()
-    my_calculator = Calculator(root)
+    root = tk.Tk()
+    global calculator
+    calculator = Calculator(root)
     root.mainloop()
 
 
