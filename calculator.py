@@ -26,7 +26,7 @@ class Calculator:
             button.grid(row=pos[0], column=pos[1])
 
         # Conversion buttons
-        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=29, pady=20, command=decimal_to_binary)
+        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=29, pady=20, command=binary_to_decimal)
         convert_to_binary_btn.grid(row=4, column=0)
 
         convert_to_decimal_btn = tk.Button(root, text="To Decimal", padx=29, pady=20, command=binary_to_decimal)
@@ -38,14 +38,25 @@ def insert_number(number):
     current = calculator.entry.get()
     calculator.entry.delete(0, tk.END)
     calculator.entry.insert(0, str(current) + str(number))
-        
-def BinarytoDecimal():
+
+def binary_to_decimal():
     # use the bin() function to convert from a decimal value to its corresponding binary value.
     binary_input = calculator.entry.get()
     try:
         decimal_output = int(binary_input, 2)
         calculator.entry.delete(0, tk.END)
         calculator.entry.insert(0, str(decimal_output))
+    except ValueError:
+        calculator.entry.delete(0, tk.END)
+        calculator.entry.insert(0, "Error")
+
+def decimal_to_binary():
+    # use the bin() function to convert from a decimal value to its corresponding binary value.
+    decimal_input = calculator.entry.get()
+    try:
+        binary_output = bin(int(decimal_input))
+        calculator.entry.delete(0, tk.END)
+        calculator.entry.insert(0, str(binary_output))
     except ValueError:
         calculator.entry.delete(0, tk.END)
         calculator.entry.insert(0, "Error")
