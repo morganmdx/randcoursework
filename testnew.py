@@ -12,20 +12,16 @@ class Calculator:
         # Load custom font
         custom_font = font.Font(family="Vidaloka-Regular", size=14)
 
-        # Load and display the resized logo
-        logo_image = tk.PhotoImage(file="calc.png")
-        width, height = logo_image.width(), logo_image.height()
-        new_width, new_height = int(width * 0.5), int(height * 0.5)  # Resize the logo to 50%
-        self.logo_image = logo_image.subsample(width // new_width, height // new_height)
-        self.logo_label = tk.Label(root, image=self.logo_image, bg=self.bg_color)
-        self.logo_label.grid(row=0, column=0, columnspan=6, padx=10, pady=10, sticky="nsew")  # Placed on a new line
-
         # Entry field for displaying and inputting numbers
         self.entry = tk.Entry(root, font=custom_font)
-        self.entry.grid(row=1, column=0, rowspan=2,columnspan=5, padx=10, pady=10, sticky="nsew")  # Add sticky option
+        self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10, sticky="nsew")  # Add sticky option
 
+        # Load and display the resized logo
+        self.logo_image = tk.PhotoImage(file="logo.png").subsample(2)  # Resizing by a factor of 2
+        self.logo_label = tk.Label(root, image=self.logo_image, bg=self.bg_color)
+        self.logo_label.grid(row=0, column=5, rowspan=2, padx=10, pady=10, sticky="nsew")
 
-         # Basic operation buttons
+        # Basic operation buttons
         operations = [
             ('Square Root', self.square_root),
             ('Power Of', self.power_of),
@@ -91,7 +87,6 @@ class Calculator:
         color_btn5 = tk.Button(root, text="", padx=10, pady=5, bg='violet', command=lambda: self.change_bg_color('violet'))
         color_btn5.grid(row=7, column=4, padx=(20, 20))  # Add spacing before the button
 
-
     # This defines a method and takes 2 parameteres (self and color)
     def change_bg_color(self, color):
         self.bg_color = color  # This line assigns the value of the color parameter to the bg_color attribute of the instance. It's storing the current background color within the class instance.
@@ -125,115 +120,4 @@ class Calculator:
             self.entry.delete(0, tk.END)
             self.entry.insert(0, "Error")
 
-    # Function to convert a decimal number to binary 
-    def decimal_to_binary(self):
-        decimal_input = self.entry.get()
-        try:
-            decimal_input = int(decimal_input)
-            binary_output = bin(decimal_input)
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(binary_output))
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-     # This adds the square foot function 
-    def square_root(self):
-        try:
-            value = float(self.entry.get())
-            result = math.sqrt(value)
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(result))
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-     #This adds the power of function 
-    def power_of(self):
-        try:
-            value = float(self.entry.get())
-            result = value ** 2  # You can modify the exponent as needed
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(result))
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-    #This adds the percentage function 
-    def percentage(self):
-        try:
-            value = float(self.entry.get())
-            result = value / 100
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(result))
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-    #This adds the multiplication function 
-    def multiplication(self):
-        try:
-            value = float(self.entry.get())
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(value) + '*')
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-    #This adds the additin function 
-    def addition(self):
-        try:
-            value = float(self.entry.get())
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(value) + '+')
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-    #This adds the subtraction function 
-    def subtraction(self):
-        try:
-            value = float(self.entry.get())
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(value) + '-')
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-    #This adds the division function 
-    def division(self):
-        try:
-            value = float(self.entry.get())
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(value) + '/')
-        except ValueError:
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-    #retrieves the current content of the entry field associated with the class instance and stores it in the variable expression.
-    def evaluate_expression(self):
-        expression = self.entry.get()
-        try:
-            result = eval(expression)
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(result))
-        except (ValueError, SyntaxError):
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
-
-    #This creates the clear function 
-    def clear(self):
-        self.entry.delete(0, tk.END)
-
-    #This runs the calculator 
-def run_calculator():
-    root = tk.Tk()
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-    root.geometry(f"{screen_width // 2}x{screen_height // 2}+{screen_width // 4}+{screen_height // 4}")
-    global calculator
-    calculator = Calculator(root)
-    root.mainloop()
-
-if __name__ == "__main__":
-    run_calculator()
+    # Function to convert a decimal
