@@ -150,15 +150,15 @@ class Calculator:
             self.entry.insert(0, "Error")
 
      #This adds the power of function 
+    # This adds the power of function 
     def power_of(self):
         try:
-            value = float(self.entry.get())
-            result = value ** 2  # You can modify the exponent as needed
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, str(result))
+            self.entry.insert(tk.END, '**')  # Insert '**' into the entry box
         except ValueError:
             self.entry.delete(0, tk.END)
             self.entry.insert(0, "Error")
+
+
 
     #This adds the percentage function 
     def percentage(self):
