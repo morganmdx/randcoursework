@@ -17,20 +17,25 @@ class Calculator:
         # Number buttons
         buttons = []
         for number in range(10):
-            button = tk.Button(root, text=str(number), padx=40, pady=20, command=lambda num=number: insert_number(num))
+            button = tk.Button(root, text=str(number), padx=40, pady=20, bg='light yellow', bd=0, command=lambda num=number: insert_number(num))
             buttons.append(button)
 
-        # Place number buttons
-        positions = [(i // 3 + 1, i % 3) for i in range(9, -1, -1)]
-        for pos, button in zip(positions, buttons[::-1]):
+        # Place number buttons (0 to 9)
+        positions = [(i // 3 + 2, i % 3) for i in range(13)]
+        positions[9] = (5, 1)  # Change the position of button "9" to row 4, column 1
+        for pos, button in zip(positions, buttons[:13]):
             button.grid(row=pos[0], column=pos[1])
 
+        # Add Clear button
+        clear_button = tk.Button(root, text="Clear", padx=40, pady=20, command=Clear)
+        clear_button.grid(row=6, column=2)
+
         # Conversion buttons
-        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=29, pady=20, command=binary_to_decimal)
-        convert_to_binary_btn.grid(row=4, column=0)
+        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=29, pady=20, command=decimal_to_binary)
+        convert_to_binary_btn.grid(row=5, column=0)
 
         convert_to_decimal_btn = tk.Button(root, text="To Decimal", padx=29, pady=20, command=binary_to_decimal)
-        convert_to_decimal_btn.grid(row=4, column=1)
+        convert_to_decimal_btn.grid(row=5, column=2)
 
 
 # Function to insert a number into the entry field
@@ -51,10 +56,11 @@ def binary_to_decimal():
         calculator.entry.insert(0, "Error")
 
 def decimal_to_binary():
-    # use the bin() function to convert from a decimal value to its corresponding binary value.
+    # Convert a decimal number to its binary equivalent
     decimal_input = calculator.entry.get()
     try:
-        binary_output = bin(int(decimal_input))
+        decimal_input = int(decimal_input)
+        binary_output = bin(decimal_input)
         calculator.entry.delete(0, tk.END)
         calculator.entry.insert(0, str(binary_output))
     except ValueError:
@@ -100,18 +106,14 @@ def Equals():
 
 def Clear():
     # clear the contents of any user input
-    pass
-
-# Our criteria as follows:
-# Subtraction/Additional - +
-# Equal/Clear = C
-# Should operate fully with precision, there should be no rounding or missing decimal places
-
-# Multi-threading 
+    calculator.entry.delete(0, tk.END)
 
 # Function for running calculator
 def run_calculator():
     root = tk.Tk()
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    root.geometry(f"{screen_width // 2}x{screen_height // 2}+{screen_width // 4}+{screen_height // 4}")  # Set geometry to fit 50% of the screen
     global calculator
     calculator = Calculator(root)
     root.mainloop()
