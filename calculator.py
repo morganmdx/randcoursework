@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import font
 import math
+from threading import Thread
+from decimal import Decimal
 
 class Calculator:
     def __init__(self, root):
@@ -75,6 +77,10 @@ class Calculator:
 
         convert_to_decimal_btn = tk.Button(root, text="To Decimal", padx=40, pady=20, bg='light yellow', command=self.binary_to_decimal, width=2)
         convert_to_decimal_btn.grid(row=6, column=2, padx=5, pady=5)
+
+        # Factorial button
+        factorial_button = tk.Button(root, text="Factorial", padx=40, pady=20, bg='light yellow', command=self.calculate_factorial, width=2)
+        factorial_button.grid(row=6, column=4, padx=5, pady=5)
 
         # Adding a button that allows the user to change the background color
         color_btn1 = tk.Button(root, text="", padx=10, pady=5, bg='lightblue', command=lambda: self.change_bg_color('lightblue'))
@@ -226,6 +232,29 @@ class Calculator:
     #This creates the clear function 
     def clear(self):
         self.entry.delete(0, tk.END)
+
+    def calculate_factorial(self):
+        value = self.entry.get()
+        try:
+            value = int(value)
+            if value < 0:
+                raise ValueError("Factorial is defined only for non-negative integers.")
+            result = Decimal(1)
+            for i in range(2, value + 1):
+                result *= Decimal(i)
+            self.entry.delete(0, tk.END)
+            self.entry.insert(0, str(result))
+        except ValueError as e:
+            self.entry.delete(0, tk.END)
+            self.entry.insert(0, str(e))
+
+    def calculate_factorial_threaded(self, value):
+        result = math.factorial(value)
+        self.root.after(0, lambda: self.update_gui_with_factorial(result))
+
+    def update_gui_with_factorial(self, result):
+        self.entry.delete(0, tk.END)
+        self.entry.insert(0, str(result))
 
     #This runs the calculator 
 def run_calculator():
