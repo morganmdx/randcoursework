@@ -1,12 +1,19 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import font
 import math
 
 class Calculator:
+
+    # This defines a method and takes 2 parameteres (self and color)
+    def change_bg_color(self, color):
+        self.bg_color = color  # This line assigns the value of the color parameter to the bg_color attribute of the instance. It's storing the current background color within the class instance.
+        self.root.configure(bg=color) # This updates the background colour
+
     def __init__(self, root):
         self.root = root
         root.title("HEM Calculator")
-        self.bg_color = 'lightblue'
+        self.bg_color = '#ffffff'
         root.configure(bg=self.bg_color)
 
         # Load custom font
@@ -35,18 +42,26 @@ class Calculator:
             ('-', self.subtraction),
             ('/', self.division)
          ]
+        
+        # Create custom style for rounded buttons
+        # Define a custom ttk style for the rounded buttons with background color
+        root.tk_setPalette(background='#ffffff')  # Set the default background color
+        style = ttk.Style()
+        style.configure('Rounded.TButton', relief='flat', borderwidth=0, padding=0, width=12, highlightthickness=0, foreground='black', background='#000')
+        style.map('Rounded.TButton', background=[('active', '#000')])
+
 
         #creating operation buttons
         #for loop which iterates over each item in the operations list
         for i, (text, command) in enumerate(operations):
-            operation_button = tk.Button(root, text=text, padx=40, pady=20, bg='light yellow', bd=0, command=command, width=2)
+            operation_button = ttk.Button(root, text=text, style='Rounded.TButton', command=command, width=12)
             operation_button.grid(row=i // 2 + 3, column=i % 2 + 3, padx=5, pady=5)
 
         # Number buttons
         # Uses a lambda function to capture the current value of number and passes it to the self.insert_number method.
         buttons = []
         for number in range(10):
-            button = tk.Button(root, text=str(number), padx=40, pady=20, bg='light yellow', bd=0, command=lambda num=number: self.insert_number(num), width=2)
+            button = ttk.Button(root, text=str(number), style='Rounded.TButton', command=lambda num=number: self.insert_number(num), width=12)
             buttons.append(button)
 
         # Place number buttons (0 to 9)
@@ -58,22 +73,22 @@ class Calculator:
             button.grid(row=pos[0], column=pos[1], padx=5, pady=5)
 
         # Add Clear button
-        clear_button = tk.Button(root, text="Clear", padx=40, pady=20, bg='#E8C1C5', command=self.clear, width=2)
+        clear_button = ttk.Button(root, text="Clear",style='Rounded.TButton', command=self.clear, width=2)
         clear_button.grid(row=7, column=1, columnspan=1, padx=5, pady=5)  # Set row and column for clear button
 
         # Decimal point button
-        decimal_button = tk.Button(root, text=".", padx=40, pady=20, bg='light yellow', bd=0, command=lambda: self.insert_decimal())
+        decimal_button = ttk.Button(root, text=".", command=lambda: self.insert_decimal())
         decimal_button.grid(row=7, column=2)
 
         # Equals button
-        equals_button = tk.Button(root, text="=", padx=40, pady=20, bg='light yellow', bd=0, command=self.evaluate_expression)
+        equals_button = ttk.Button(root, text="=", command=self.evaluate_expression)
         equals_button.grid(row=7, column=3, padx=5, pady=5)
 
         # Conversion buttons
-        convert_to_binary_btn = tk.Button(root, text="To Binary", padx=40, pady=20, bg='light yellow', command=self.decimal_to_binary, width=2)
+        convert_to_binary_btn = ttk.Button(root, text="To Binary",command=self.decimal_to_binary, width=2)
         convert_to_binary_btn.grid(row=6, column=0, padx=5, pady=5)
 
-        convert_to_decimal_btn = tk.Button(root, text="To Decimal", padx=40, pady=20, bg='light yellow', command=self.binary_to_decimal, width=2)
+        convert_to_decimal_btn = ttk.Button(root, text="To Decimal", command=self.binary_to_decimal, width=2)
         convert_to_decimal_btn.grid(row=6, column=2, padx=5, pady=5)
 
         # Adding a button that allows the user to change the background color
@@ -92,11 +107,11 @@ class Calculator:
         color_btn5 = tk.Button(root, text="", padx=10, pady=5, bg='violet', command=lambda: self.change_bg_color('violet'))
         color_btn5.grid(row=9, column=4, padx=(20, 20))  # Add spacing before the button
 
+        style = ttk.Style()
+        style.configure('Rounded.TButton', relief='solid', borderwidth=0, foreground='black', background='#000')
+        style.map('Rounded.TButton', background=[('active', '#000')])  # Adjust the background color when the button is clicked
 
-    # This defines a method and takes 2 parameteres (self and color)
-    def change_bg_color(self, color):
-        self.bg_color = color  # This line assigns the value of the color parameter to the bg_color attribute of the instance. It's storing the current background color within the class instance.
-        self.root.configure(bg=color) # This updates the background colour
+
 
     # Retrieves current content in the data field and stores it in the varriable 'current'
     # Checks wether the current content of the data field contains a valid numeric value
