@@ -1,9 +1,18 @@
+#import tkinter as tk is a way to import the tkinter module and give it a shorter name in this instance we called it tk.
 import tkinter as tk
+#the from tkinter import font statement is a way to import only the font. This allows us to access features related to fonts
+#and manipulate text styles, sizes, and other font-related properties in our Tkinter.
 from tkinter import font
+#This stament allows us to use any mathmatical functions in our code to calculate results.
 import math
+#The Thread statement is a part of the threading module.This provides a convenient way to create and manage threads in our program.
 from threading import Thread
+#This is used to present decimal numbers as this is important in certain calculations.
 from decimal import Decimal
 
+#This code uses Tkinter to define a Calculator class for a basic calculator app. The background colour and title of the main window are set in the constructor (__init__ method).
+#The Tkinter window reference is kept in the self.root variable, and light blue is set as the background colour. 
+#The class is intended to serve as a template to create calculator components that have an expected appearance and layout.
 class Calculator:
     def __init__(self, root):
         self.root = root
@@ -11,23 +20,22 @@ class Calculator:
         self.bg_color = 'lightblue'
         root.configure(bg=self.bg_color)
 
-        # Load custom font
+        # This loads a customized font, we found this font in google fonts
         custom_font = font.Font(family="Vidaloka-Regular", size=14)
 
-        # Load and display the resized logo
-        logo_image = tk.PhotoImage(file="calc.png")
+        logo_image = tk.PhotoImage(file="calc.png")#Here we used the Tkinter's PhotoImage class to load an image file named "calc.png" and assigns it to the variable logo_image.
         width, height = logo_image.width(), logo_image.height()
-        new_width, new_height = int(width * 0.5), int(height * 0.5)  # Resize the logo to 50%
+        new_width, new_height = int(width * 0.5), int(height * 0.5) #calculates the dimensions of the image and Resizes the logo to 50%
         self.logo_image = logo_image.subsample(width // new_width, height // new_height)
         self.logo_label = tk.Label(root, image=self.logo_image, bg=self.bg_color)
-        self.logo_label.grid(row=0, column=0, columnspan=6, padx=10, pady=10, sticky="nsew")  # Placed on a new line
+        self.logo_label.grid(row=0, column=0, columnspan=6, padx=10, pady=10, sticky="nsew") #This places the logo label in the Tkinter grid.
 
         # Entry field for displaying and inputting numbers
         self.entry = tk.Entry(root, font=custom_font)
         self.entry.grid(row=1, column=0, rowspan=2,columnspan=5, padx=10, pady=10, sticky="nsew")  # Add sticky option
 
 
-         # Basic operation buttons
+         # These are just Basic operation buttons
         operations = [
             ('Square Root', self.square_root),
             ('Power Of', self.power_of),
@@ -38,7 +46,7 @@ class Calculator:
             ('/', self.division)
          ]
 
-        #creating operation buttons
+        #Here we created the operation buttons
         #for loop which iterates over each item in the operations list
         for i, (text, command) in enumerate(operations):
             operation_button = tk.Button(root, text=text, padx=40, pady=20, bg='light yellow', bd=0, command=command, width=2)
@@ -116,13 +124,15 @@ class Calculator:
         else:
             self.entry.insert(tk.END, str(number))
 
-    # This adds a decimal point function 
+    # The insert_decimal method is designed to triggered the tkinker decimal point function. 
+    #This code adds a decimal point to the end of the entry field's content if certain conditions are met.  
     def insert_decimal(self):
         current = self.entry.get()
         if current and '.' not in current:
             self.entry.insert(tk.END, '.')
 
-    # function to convert a binary number to decimal
+    #the binary_to_decimal method is designed to convert a binary number into its decimal equivalent. 
+    #It handles both successful conversions and cases where the input is not a valid binary number.
     def binary_to_decimal(self):
         binary_input = self.entry.get()
         try:
@@ -133,7 +143,7 @@ class Calculator:
             self.entry.delete(0, tk.END)
             self.entry.insert(0, "Error")
 
-    # Function to convert a decimal number to binary 
+    # Function to convert a decimal number to binary
     def decimal_to_binary(self):
         decimal_input = self.entry.get()
         try:
@@ -154,16 +164,16 @@ class Calculator:
             self.entry.insert(0, str(result))
         except ValueError:
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
-     #This adds the power of function 
-    # This adds the power of function 
+     
+    #This adds the power of function 
     def power_of(self):
         try:
             self.entry.insert(tk.END, '**')  # Insert '**' into the entry box
         except ValueError:
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
 
 
@@ -171,12 +181,12 @@ class Calculator:
     def percentage(self):
         try:
             value = float(self.entry.get())
-            result = value / 100
+            result = value / 100 #Calculate the percentage of the obtained value by dividing it by 100.
             self.entry.delete(0, tk.END)
             self.entry.insert(0, str(result))
         except ValueError:
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
     #This adds the multiplication function 
     def multiplication(self):
@@ -186,37 +196,37 @@ class Calculator:
             self.entry.insert(0, str(value) + '*')
         except ValueError:
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
     #This adds the additin function 
     def addition(self):
         try:
-            value = float(self.entry.get())
+            value = float(self.entry.get()) # This Retrieve the value from the Tkinter entry widget and convert it to a floating-point number.
             self.entry.delete(0, tk.END)
             self.entry.insert(0, str(value) + '+')
         except ValueError:
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
     #This adds the subtraction function 
     def subtraction(self):
         try:
-            value = float(self.entry.get())
+            value = float(self.entry.get())#Retrieve the value from the Tkinter entry widget and convert it to a floating-point number.
             self.entry.delete(0, tk.END)
             self.entry.insert(0, str(value) + '-')
         except ValueError:
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
     #This adds the division function 
     def division(self):
         try:
-            value = float(self.entry.get())
+            value = float(self.entry.get())#This Retrieve the value from the Tkinter entry widget and convert it to a floating-point number.
             self.entry.delete(0, tk.END)
             self.entry.insert(0, str(value) + '/')
         except ValueError:
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
     #retrieves the current content of the entry field associated with the class instance and stores it in the variable expression.
     def evaluate_expression(self):
@@ -227,7 +237,7 @@ class Calculator:
             self.entry.insert(0, str(result))
         except (ValueError, SyntaxError):
             self.entry.delete(0, tk.END)
-            self.entry.insert(0, "Error")
+            self.entry.insert(0, "Error")#Clear the entry field and insert the string "Error" to indicate that the operation couldn't be performed due to invalid input.
 
     #This creates the clear function 
     def clear(self):
@@ -236,35 +246,38 @@ class Calculator:
     def calculate_factorial(self):
         value = self.entry.get()
         try:
-            value = int(value)
+            value = int(value)#Convert the input value to an integer.
             if value < 0:
-                raise ValueError("Factorial is defined only for non-negative integers.")
+                raise ValueError("Factorial is defined only for non-negative integers.")#Check if the converted value is a non-negative integer. If not, raise a ValueError with an appropriate error message.
             result = Decimal(1)
             for i in range(2, value + 1):
                 result *= Decimal(i)
-            self.entry.delete(0, tk.END)
+            self.entry.delete(0, tk.END) 
             self.entry.insert(0, str(result))
         except ValueError as e:
             self.entry.delete(0, tk.END)
             self.entry.insert(0, str(e))
+            #Clear the entry field and insert the error message as a string to indicate that the operation couldn't be performed due to invalid input.
 
     def calculate_factorial_threaded(self, value):
-        result = math.factorial(value)
-        self.root.after(0, lambda: self.update_gui_with_factorial(result))
+        result = math.factorial(value)#uses the math function to calculate the factorial of the given value
+        self.root.after(0, lambda: self.update_gui_with_factorial(result))#prevents potential delays in responsiveness.
 
     def update_gui_with_factorial(self, result):
         self.entry.delete(0, tk.END)
         self.entry.insert(0, str(result))
 
     #This runs the calculator 
-def run_calculator():
+def run_calculator():#Create the main Tkinter window
     root = tk.Tk()
+    # the screen width and height
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
+    #Set the geometry of the window to half of the screen size, centered
     root.geometry(f"{screen_width // 2}x{screen_height // 2}+{screen_width // 4}+{screen_height // 4}")
     global calculator
     calculator = Calculator(root)
     root.mainloop()
-
+# Check if the script is being run directly
 if __name__ == "__main__":
     run_calculator()
